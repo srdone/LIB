@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 """
 Implement an HTTP web server in Python that knows how to run server-side
 CGI scripts coded in Python; serves files and scripts from current working

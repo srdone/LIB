@@ -16,5 +16,6 @@ else:
 	print(<form method=POST action="cgi-bin/lib_cgi_display_story.py">)
 	for phrase in lib.gen_speech_parts():
 		print('<P><B>{} : <B><input type=text name={}>'.format(phrase['speech-part'], phrase['id']))
+	print('<input type=hidden name=libtitle value={}'.format(form['libtitle'].value)) #pass the name of the lib we are working with
 	print('<P><B><input type=submit></B>')
 	print('</body>')
