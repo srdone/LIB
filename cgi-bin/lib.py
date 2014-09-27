@@ -6,7 +6,7 @@ class Lib:
 	def __init__(self, filename):
 		'''Takes an xml filename and processes it to allow a Lib
 		to be generated and interacted with.'''
-		self.lib_xml = open_lib_xml(file)
+		self.lib_xml = open_lib_xml(filename)
 
 	def set_word(self, id, word):
 		'''Retrieve the phrase element with a given id from the xml

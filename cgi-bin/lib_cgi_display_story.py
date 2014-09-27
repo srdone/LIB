@@ -1,8 +1,12 @@
 #! /usr/bin/env python3
 
-import cgi
+import cgi, sys
 import lib
 from lib import Lib
+import cgitb
+cgitb.enable()
+
+sys.stderr = sys.stdout
 
 form = cgi.FieldStorage()
 
@@ -10,8 +14,9 @@ form = cgi.FieldStorage()
 lib = Lib(form['libtitle'].value)
 
 #set the words in the lib from previous page
-for field in form:
-	lib.set_word(field.key, field.value)
+for key in form.keys():
+	if key != 'libtitle':
+		lib.set_word(key, form[key].value)
 
 print('Content-type: text/html\n') #parse form data
 print('<title>Final Story</title>')
