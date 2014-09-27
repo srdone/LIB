@@ -8,7 +8,7 @@ class Lib:
 
 	def set_word(self, id, word):
 		#retrieve the phrase element with a given id from the xml
-		phrase = lib_xml.find(".//phrase[@id='" + id + "']")
+		phrase = self.lib_xml.find(".//phrase[@id='" + id + "']")
 		phrase.attrib["word"] = word
 
 	def gen_speech_parts(self):
@@ -17,10 +17,8 @@ class Lib:
 				yield {"id": phrase.get("id"), "speech_part": phrase.get("speech_part")}
 
 	def gen_story(self):
-		#construct an iterator so other methods can display it how they like.
-		string = ""
 		for line in self.lib_xml.getiterator("phrase"):
-			string = string + (line.attrib.get("text") if line.attrib.get("text") is not None else "")
+			string = (line.attrib.get("text") if line.attrib.get("text") is not None else "")
 			string = string + (line.attrib.get("word") if line.attrib.get("word") is not None else "")
 			string = string + (line.attrib.get("tail") if line.attrib.get("tail") is not None else "")
 			string = string + " "
