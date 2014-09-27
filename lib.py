@@ -35,3 +35,6 @@ def open_lib_xml(filename):
 	with open(filename, "r") as lib_file:
 		lib_xml = ET.parse(lib_file)
 		return lib_xml
+
+def list_available_libs():
+	pass

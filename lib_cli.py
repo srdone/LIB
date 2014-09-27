@@ -25,7 +25,8 @@ def get_lib_name():
 	return input("Enter the relative path to your lib file.")
 
 def request_words(lib):
-	'Ask the user to pick a word for each speech part in the Lib.'
+	'''Ask the user to pick a word for each speech part in the Lib.
+	Set the word in the lib using the id of the speech_part.'''
 	print("Enter words that match each part of speech below: ")
 	for speech_part in lib.gen_speech_parts():
 		word = input(speech_part["speech_part"] + ": ")
