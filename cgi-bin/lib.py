@@ -20,14 +20,14 @@ class Lib:
 			if phrase.get("speech_part") is not None:
 				yield {"id": phrase.get("id"), "speech_part": phrase.get("speech_part")}
 
-	def gen_story(self):
+	def gen_story(self, line_ending='\n'):
 		'''A generator that constructs a string for each phrase.
 		Assumes that a word attribute has been selected.'''
 		for line in self.lib_xml.getiterator("phrase"):
 			string = (line.attrib.get("text") if line.attrib.get("text") is not None else "")
 			string = string + (line.attrib.get("word") if line.attrib.get("word") is not None else "")
 			string = string + (line.attrib.get("tail") if line.attrib.get("tail") is not None else "")
-			string = string + " "
+			string = (string + line_ending if line.attrib.get('paragraph')=='true' else string) #Create new line if needed.
 			yield string
 
 def open_lib_xml(filename):
