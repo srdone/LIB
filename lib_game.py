@@ -16,15 +16,16 @@ def display_intro():
 def get_player_name():
 	return input("What is your name?: ")
 
+#Ask the user to pick a word for each speech part in the LIB
 def request_words(lib):
 	print("Enter words that match each part of speech below: ")
-	for phrase in lib.lib_xml.getiterator("phrase"):
-		if phrase.attrib.get("speech_part") is not None:
-			word = input(phrase.attrib.get("speech_part") + ": ")
-			lib.set_word(phrase, word)
+	for speech_part in lib.gen_speech_parts():
+		word = input(speech_part["speech_part"] + ": ")
+		lib.set_word(speech_part["id"], word)
 
 def display_story(lib):
-	print(lib.construct_story())
+	for phrase in lib.gen_story():
+		print(phrase)
 
 def play_again():
 	response = input("Do you want to try another LIB? (y/n):")

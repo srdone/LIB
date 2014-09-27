@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <data>
-	<phrase num="0" text="Be kind to your " speech_part="Noun"/>
-	<phrase num="1" text="-footed " speech_part="Noun (plural)"/>
-	<phrase num="2" text="For a duck may be somebody's " speech_part="Noun" tail=","/>
-	<phrase num="3" text="Be kind to your " speech_part="Place"/>
-	<phrase num="4" text="Where the weather is always " speech_part="Adjective" tail="."/>
-	<phrase num="5" text="You may think that this is the " speech_part="Noun" tail=","/>
-	<phrase num="6" text="Well it is."/>
+	<phrase id="0" text="Be kind to your " speech_part="Noun"/>
+	<phrase id="1" text="-footed " speech_part="Noun (plural)"/>
+	<phrase id="2" text="For a duck may be somebody's " speech_part="Noun" tail=","/>
+	<phrase id="3" text="Be kind to your " speech_part="Place"/>
+	<phrase id="4" text="Where the weather is always " speech_part="Adjective" tail="."/>
+	<phrase id="5" text="You may think that this is the " speech_part="Noun" tail=","/>
+	<phrase id="6" text="Well it is."/>
 </data>
