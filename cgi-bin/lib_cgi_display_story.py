@@ -11,7 +11,7 @@ sys.stderr = sys.stdout
 form = cgi.FieldStorage()
 
 #recreate the lib we are working with
-lib = Lib(form['libtitle'].value + '.xml')
+lib = Lib('cgi-bin/lib_data/' + form['libtitle'].value + '.xml')
 
 #set the words in the lib from previous page
 for key in form.keys():
