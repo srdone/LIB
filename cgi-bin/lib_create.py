@@ -8,7 +8,7 @@ from lib import Lib
 sys.stderr = sys.stdout
 
 #get data from the previous page
-form = cgi.FieldStorage
+form = cgi.FieldStorage()
 
 #create blank lib
 lib = Lib()
@@ -23,11 +23,11 @@ print('<body>')
 #Fill lib in with data from cgi form
 n = 0
 while n < 2:			#(length(form)/4):
-	line_attributes['text' + str(n)] = form['text' + str(n)]
-	print(line_attributes['text' + str(n)])
-	line_attributes['speech-part' + str(n)] = form['speech-part' + str(n)]
-	line_attributes['tail' + str(n)] = form['tail' + str(n)]
-	line_attributes['paragraph' + str(n)] = form['paragraph' + str(n)]
+	line_attributes = {}
+	line_attributes['text' + str(n)] = form[('text' + str(n))].value
+	line_attributes['speech-part' + str(n)] = form.getvalue('speech-part' + str(n))
+	line_attributes['tail' + str(n)] = form.getvalue('tail' + str(n))
+	line_attributes['paragraph' + str(n)] = form.getvalue('paragraph' + str(n))
 	lib.add_phrase(n, line_attributes)
 
 #build and print story

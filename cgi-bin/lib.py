@@ -40,7 +40,7 @@ class Lib:
 		'''
 		Adds a phrase to the lib.
 		'''
-		line = SubElement(self.lib_xml, "phrase")
+		line = ET.SubElement(self.lib_xml, "phrase")
 		for key in attributes.keys():
 			line.set(key, attributes[key])
 
