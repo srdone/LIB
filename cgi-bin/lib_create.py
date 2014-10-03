@@ -24,16 +24,22 @@ print('<body>')
 n = 0
 while n < 2:			#(length(form)/4):
 	line_attributes = {}
-	line_attributes['text' + str(n)] = form[('text' + str(n))].value
-	line_attributes['speech-part' + str(n)] = form.getvalue('speech-part' + str(n))
-	line_attributes['tail' + str(n)] = form.getvalue('tail' + str(n))
-	line_attributes['paragraph' + str(n)] = form.getvalue('paragraph' + str(n))
+	line_attributes['text'] = form[('text' + str(n))].value
+	#print(line_attributes['text' + str(n)])
+	line_attributes['speech-part'] = form.getvalue('speech-part' + str(n))
+	#print(line_attributes['speech-part' + str(n)])
+	line_attributes['tail'] = form.getvalue('tail' + str(n))
+	line_attributes['paragraph'] = form.getvalue('paragraph' + str(n))
+	#print(line_attributes)
 	lib.add_phrase(n, line_attributes)
+	#print(line_attributes)
+	n = n + 1
 
 #build and print story
 string = ""
 for phrase in lib.gen_story(line_ending='<br>'):
-		string = string + phrase
+	string = string + phrase
+	print(string)
 print(string)
 
 #close page

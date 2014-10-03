@@ -41,8 +41,10 @@ class Lib:
 		Adds a phrase to the lib.
 		'''
 		line = ET.SubElement(self.lib_xml, "phrase")
+		line.set("id", str(id))
 		for key in attributes.keys():
 			line.set(key, attributes[key])
+
 
 def open_lib_xml(filename):
 	'''Opens an xml file and returns the parsed xml.'''
