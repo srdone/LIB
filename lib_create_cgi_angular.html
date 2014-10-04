@@ -1,0 +1,25 @@
+<html ng-app="libApp">
+    <head>
+        <title>Create your LIB!</title>
+    </head>
+
+	<body ng-controller="LibController">
+        <a href="https://egghead.io/">https://egghead.io/</a><br />
+        <a href="https://angularjs.org/">https://angularjs.org/</a><br />
+
+		<p><B>Create your own lib. Fill out the following for each phrase in the lib.</B></p>
+		<form method=POST action='cgi-bin/lib_create.py'>
+			<p ng-repeat="phrase in phrases">
+				Opening text: <input type=text ng-model="{{phrase.text}}"/>
+				Speech part: <input type=text ng-model="{{phrase.speechPart}}"/>
+				Trailing text: <input type=text ng-model="{{phrase.tail}}"/>
+				Start new paragraph after: <input type=checkbox ng-model="{{phrase.paragraph}}"/>
+			</p>
+            <input type="button" value="Add Item" ng-click="addPhrase()" />
+			<input type=submit>
+		</form>
+
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+        <script src="lib_create_cgi_angular.js"></script>
+	</body>
+</html>
