@@ -1,0 +1,19 @@
+{
+	"phrase" : {"id": 0, "text": "&quot;The ", "speech_part": "Noun", "tail": " has come&quot;, ", "paragraph": false},
+	"phrase" : {"id": 1, "text": "the  ", "speech_part": "Noun", "tail": " said,", "paragraph": true},
+
+	"phrase" : {"id": 2, "text": "&quot;To ", "speech_part": "Verb", "tail": " ", "paragraph": false},
+	"phrase" : {"id": 3, "text": "of ", "speech_part": "Adjective", "tail": " things:", "paragraph": true},
+
+	"phrase" : {"id": 4, "text": "Of ", "speech_part": "Noun (plural)", "tail": "- ", "paragraph": false},
+	"phrase" : {"id": 5, "text": "and ", "speech_part": "Noun (plural)", "tail": "- ", "paragraph": false},
+	"phrase" : {"id": 6, "text": "and ", "speech_part": "Adjective", "tail": " wax-", "paragraph": true},
+
+	"phrase" : {"id": 7, "text": "", "speech_part": "Preposition", "tail": " cabbages- ", "paragraph": false},
+	"phrase" : {"id": 8, "text": "and ", "speech_part": "Noun (plural)", "tail": "-", "paragraph": true},
+
+	"phrase" : {"id": 9, "text": "And why the sea ", "speech_part": "Verb", "tail": " ", "paragraph": false},
+	"phrase" : {"id": 10, "text": "", "speech_part": "Adverb", "tail": "hot-", "paragraph": true},
+
+	"phrase" : {"id": 11, "text": "And whether pigs ", "speech_part": "Verb", "tail": " wings.&quot;", "paragraph": true},
+}
