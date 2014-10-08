@@ -1,11 +1,13 @@
-import lib
+import lib as L
 from lib import Lib
+
+lib_directory = "../lib_data/"
 
 def play_game():
 	'Game flow'
 	display_intro()
 	plyr_name = get_player_name()
-	lib = Lib(get_lib_name())
+	lib = L.open_lib_file(*get_lib_name())
 	request_words(lib)
 	display_story(lib)
 	if play_again():
@@ -22,7 +24,9 @@ def get_player_name():
 
 def get_lib_name():
 	'''Get the name and relative path of the Lib you want to play.'''
-	return input("Enter the relative path to your lib file.")
+	lib_file_name = input("Enter the relative path to your lib file.")
+	file_type = input("What is the type of the lib file?")
+	return (lib_directory + lib_file_name, file_type)
 
 def request_words(lib):
 	'''Ask the user to pick a word for each speech part in the Lib.

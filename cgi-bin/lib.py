@@ -1,58 +1,79 @@
 # Object code for a lib and lib processing
 
 import xml.etree.ElementTree as ET
-
+import json
 
 class Lib:
-    def __init__(self, filename=None):
-        '''Takes an xml filename and processes it to allow a Lib
-		to be generated and interacted with.'''
-        if filename:
-            self.lib_xml = open_lib_xml(filename)
-        else:
-            self.lib_xml = ET.Element('data')
+    def __init__(self):
+        self.lib_data = []
 
     def set_word(self, id, word):
-        '''Retrieve the phrase element with a given id from the xml
-		and assign a new attribute for the selected word to match the speech_part'''
-        phrase = self.lib_xml.find(".//phrase[@id='" + id + "']")
-        phrase.attrib["word"] = word
+        for phrase in self.lib_data:
+            if phrase["id"] == id:
+                phrase["word"] = word
+                break
 
     def gen_speech_parts(self):
         '''A generator that gives each speech_part and the id of the phrase it belongs to.'''
-        for phrase in self.lib_xml.getiterator("phrase"):
-            if phrase.get("speech_part") is not None:
-                yield {"id": phrase.get("id"), "speech_part": phrase.get("speech_part")}
+        print(self.lib_data)
+        for phrase in sorted(self.lib_data, key=lambda phrase: phrase["id"]):
+            if "speech_part" in phrase:
+                yield {"id": phrase["id"], "speech_part": phrase["speech_part"]}
 
-    def gen_story(self, line_ending='\n'):
+    def gen_story(self, phrase_ending='\n'):
         '''A generator that constructs a string for each phrase.
-		Assumes that a word attribute has been selected.'''
-        for line in self.lib_xml.getiterator("phrase"):
-            string = (line.attrib.get("text") if line.attrib.get("text") is not None else "")
-            if line.attrib.get("word"):
-                string = string + (line.attrib.get("word") if line.attrib.get("word") is not None else "")
+        Assumes that a word attribute has been selected.'''
+        for phrase in sorted(self.lib_data, key=lambda phrase: phrase["id"]):
+            string = (phrase["text"] if phrase["text"] is not None else "")
+            if phrase["word"]:
+                string = string + (phrase["word"] if phrase["word"] is not None else "")
             else:
-                string = string + (line.attrib.get("speech_part") if line.attrib.get("speech_part") is not None else "")
-            string = string + (line.attrib.get("tail") if line.attrib.get("tail") is not None else "")
-            string = (
-                string + line_ending if line.attrib.get('paragraph') == 'true' else string)  #Create new line if needed.
+                string = string + (phrase["speech_part"] if phrase["speech_part"] is not None else "")
+            string = string + (phrase["tail"] if phrase["tail"] is not None else "")
+            string = (string + phrase_ending if phrase['paragraph'] == true else string)  #Create new phrase if needed.
             yield string
 
     def add_phrase(self, id, attributes):
-        '''
-		Adds a phrase to the lib.
-		'''
-        line = ET.SubElement(self.lib_xml, "phrase")
-        line.set("id", str(id))
+        '''Adds a phrase to the lib.'''
+        phrase = {}
         for key in attributes.keys():
-            line.set(key, attributes[key])
+            phrase[key] = attributes[key]
+        phrase["id"] = id
+        self.lib_data.append(phrase)
 
-def open_lib_xml(filename):
-    '''Opens an xml file and returns the parsed xml.'''
+def open_lib_file(filename, type="json"):
+    '''Opens an xml or json file and parses it to create a lib object.'''
     with open(filename, "r") as lib_file:
-        lib_xml = ET.parse(lib_file)
-        return lib_xml
+        if type == 'xml':
+            return create_lib_from_xml(lib_file)
+        elif type == 'json':
+            return create_lib_from_json(lib_file)
 
+def create_lib_from_xml(lib_file):
+    "parses xml to create a lib object"
+    lib = Lib()
+    tree = ET.parse(lib_file)
+    root = tree.getroot()
+    for phrase in root.findall('phrase'):
+        parsed_phrase = {}
+        parsed_phrase["text"] = phrase.get("text")
+        parsed_phrase["word"] = (phrase.get("word") if phrase.get("word") is not None else "")
+        parsed_phrase["speech_part"] = phrase.get('speech_part')
+        parsed_phrase["tail"] = phrase.get("tail")
+        parsed_phrase["paragraph"] = phrase.get("paragraph")
+        lib.add_phrase(phrase.get("id"), parsed_phrase)
+    return lib
 
-def list_available_libs():
-    pass
+def create_lib_from_json(lib_file):
+    "parses json to create a lib object"
+    lib = Lib()
+    lib_json = json.loads(lib_file.read())
+    for phrase in lib_json["phrases"]:
+        parsed_phrase = {}
+        parsed_phrase["text"] = phrase["text"]
+        parsed_phrase["word"] = (phrase["word"] if "word" in phrase else "")
+        parsed_phrase["speech_part"] = phrase['speech_part']
+        parsed_phrase["tail"] = phrase["tail"]
+        parsed_phrase["paragraph"] = phrase["paragraph"]
+        lib.add_phrase(phrase["id"], parsed_phrase)
+    return lib
