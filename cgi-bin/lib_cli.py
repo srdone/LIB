@@ -7,7 +7,7 @@ def play_game():
 	'Game flow'
 	display_intro()
 	plyr_name = get_player_name()
-	lib = L.open_lib_file(*get_lib_name())
+	lib = L.open_lib_file(get_lib_name())
 	request_words(lib)
 	display_story(lib)
 	if play_again():
@@ -25,8 +25,7 @@ def get_player_name():
 def get_lib_name():
 	'''Get the name and relative path of the Lib you want to play.'''
 	lib_file_name = input("Enter the relative path to your lib file.")
-	file_type = input("What is the type of the lib file?")
-	return (lib_directory + lib_file_name, file_type)
+	return (lib_directory + lib_file_name)
 
 def request_words(lib):
 	'''Ask the user to pick a word for each speech part in the Lib.
@@ -37,9 +36,11 @@ def request_words(lib):
 		lib.set_word(speech_part["id"], word)
 
 def display_story(lib):
-	'Displays the filled in phrases, one on each line.'
+	'Displays the story, consisting of the filled in phrases.'
+	story = ""
 	for phrase in lib.gen_story():
-		print(phrase)
+		story = story + phrase
+	print(story)
 
 def play_again():
 	'Ask the player if they want to play again.'

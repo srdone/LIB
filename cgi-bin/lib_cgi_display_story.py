@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 import cgi, sys
-import lib
+import lib as L
 from lib import Lib
 import cgitb
 cgitb.enable()
@@ -11,7 +11,7 @@ sys.stderr = sys.stdout
 form = cgi.FieldStorage()
 
 #recreate the lib we are working with
-lib = Lib('../lib_data/' + form['libtitle'].value + '.xml')
+lib = L.open_lib_file('lib_data/' + form['libtitle'].value)
 
 #set the words in the lib from previous page
 for key in form.keys():
@@ -20,10 +20,10 @@ for key in form.keys():
 
 def create_story_string():
 	'Creates a string containing the full lib story'
-	string = ""
-	for phrase in lib.gen_story(line_ending='<br>'):
-		string = string + phrase
-	return string
+	story = ""
+	for phrase in lib.gen_story(phrase_ending='<br>'):
+		story = story + phrase
+	return story
 
 'Writes the opening text of the webpage.'
 print('Content-type: text/html\n') #parse form data

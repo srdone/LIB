@@ -1,6 +1,6 @@
 {
 	"phrases": [
-	{"id": 0, "text": "\"The ", "speech_part": "Noun", "tail": " has come\";, ", "paragraph": false},
+	{"id": 0, "text": "\"The ", "speech_part": "Noun", "tail": " has come\", ", "paragraph": false},
 	{"id": 1, "text": "the  ", "speech_part": "Noun", "tail": " said,", "paragraph": true},
 
 	{"id": 2, "text": "\"To ", "speech_part": "Verb", "tail": " ", "paragraph": false},
@@ -14,7 +14,7 @@
 	{"id": 8, "text": "and ", "speech_part": "Noun (plural)", "tail": "-", "paragraph": true},
 
 	{"id": 9, "text": "And why the sea ", "speech_part": "Verb", "tail": " ", "paragraph": false},
-	{"id": 10, "text": "", "speech_part": "Adverb", "tail": "hot-", "paragraph": true},
+	{"id": 10, "text": "", "speech_part": "Adverb", "tail": " hot-", "paragraph": true},
 
 	{"id": 11, "text": "And whether pigs ", "speech_part": "Verb", "tail": " wings.\"", "paragraph": true}
 ]

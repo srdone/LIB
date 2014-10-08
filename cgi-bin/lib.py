@@ -2,20 +2,22 @@
 
 import xml.etree.ElementTree as ET
 import json
+import os.path
 
 class Lib:
-    def __init__(self):
+    def __init__(self, lib_location = None):
         self.lib_data = []
+        if lib_location is not None:
+            open_lib_file
 
-    def set_word(self, id, word):
+    def set_word(self, phrase_id, word):
         for phrase in self.lib_data:
-            if phrase["id"] == id:
+            if phrase["id"] == phrase_id:
                 phrase["word"] = word
                 break
 
     def gen_speech_parts(self):
         '''A generator that gives each speech_part and the id of the phrase it belongs to.'''
-        print(self.lib_data)
         for phrase in sorted(self.lib_data, key=lambda phrase: phrase["id"]):
             if "speech_part" in phrase:
                 yield {"id": phrase["id"], "speech_part": phrase["speech_part"]}
@@ -30,7 +32,7 @@ class Lib:
             else:
                 string = string + (phrase["speech_part"] if phrase["speech_part"] is not None else "")
             string = string + (phrase["tail"] if phrase["tail"] is not None else "")
-            string = (string + phrase_ending if phrase['paragraph'] == true else string)  #Create new phrase if needed.
+            string = (string + phrase_ending if phrase['paragraph'] == True else string)  #Create new phrase if needed.
             yield string
 
     def add_phrase(self, id, attributes):
@@ -41,12 +43,13 @@ class Lib:
         phrase["id"] = id
         self.lib_data.append(phrase)
 
-def open_lib_file(filename, type="json"):
+def open_lib_file(filename):
     '''Opens an xml or json file and parses it to create a lib object.'''
     with open(filename, "r") as lib_file:
-        if type == 'xml':
+        extension = os.path.splitext(filename)[1]
+        if extension == '.xml':
             return create_lib_from_xml(lib_file)
-        elif type == 'json':
+        elif extension == '.json':
             return create_lib_from_json(lib_file)
 
 def create_lib_from_xml(lib_file):
@@ -60,7 +63,7 @@ def create_lib_from_xml(lib_file):
         parsed_phrase["word"] = (phrase.get("word") if phrase.get("word") is not None else "")
         parsed_phrase["speech_part"] = phrase.get('speech_part')
         parsed_phrase["tail"] = phrase.get("tail")
-        parsed_phrase["paragraph"] = phrase.get("paragraph")
+        parsed_phrase["paragraph"] = True if phrase.get("paragraph") == "true" else False
         lib.add_phrase(phrase.get("id"), parsed_phrase)
     return lib
 

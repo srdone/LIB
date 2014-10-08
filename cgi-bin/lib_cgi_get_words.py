@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 import cgi, sys
-import lib
+import lib as L
 from lib import Lib
 
 #show errors in the console
@@ -33,7 +33,7 @@ def no_lib():
 def lib_chosen():
 	'Writes the body of the page, containing the word parts and text boxes for the LIB'
 	print('<h1>Please enter words to match the given parts of speech</h1>')
-	lib = Lib('cgi-bin/lib_data/' + form['libtitle'].value + '.xml')
+	lib = L.open_lib_file('lib_data/' + form['libtitle'].value)
 	print('<form method=POST action="cgi-bin/lib_cgi_display_story.py">')
 	for phrase in lib.gen_speech_parts():
 		print('<P><B>{} : <B><input type=text name={}></P>'.format(phrase['speech_part'], phrase['id']))
