@@ -64,7 +64,7 @@ def create_lib_from_xml(lib_file):
         parsed_phrase["speech_part"] = phrase.get('speech_part')
         parsed_phrase["tail"] = phrase.get("tail")
         parsed_phrase["paragraph"] = True if phrase.get("paragraph") == "true" else False
-        lib.add_phrase(phrase.get("id"), parsed_phrase)
+        lib.add_phrase(int(phrase.get("id")), parsed_phrase)
     return lib
 
 def create_lib_from_json(lib_file):
